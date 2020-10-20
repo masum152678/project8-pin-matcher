@@ -18,31 +18,31 @@
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input id="number-input" class="form-control" type="text">
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">7</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">8</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">4</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">5</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">1</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">2</div>
+                              <div class="button" onclick="numberGenerator(this.innerText)">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div class="button"><</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
-                            </div>
+                                <div class="button" onclick="backspace(this.innerText)"><</div>
+                                <div class="button" onclick="numberGenerator(this.innerText)">0</div>
+                                <div class="button" onclick="clr(this.innerText)">C</div>
+                            </div>                                      
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
+                                <button type="submit" class="submit-btn" onclick="confirm(this.innerText)">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -50,26 +50,53 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p id="pin-unMatched" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pin-matched" class="notify">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
 </body>
 
         <script>
             function pinGenerator(){
-                for(var i = 0; i<6; i++){
+                document.getElementById('pin-input').value = " ";
+                for(var i = 0; i<4; i++){
                     const randoms = Math.random();
                     const randNumbers = randoms * 10;
                     var numbers = Math.floor(randNumbers);
-                    console.log(numbers);
+                    // console.log(numbers);
                      
                     document.getElementById('pin-input').value = document.getElementById('pin-input').value + numbers;
-                   
-                    
                 }
-               
-                
             }
+
+            function numberGenerator(x){
+                let newNmbr = x;
+                document.getElementById('number-input').value = document.getElementById('number-input').value + x;
+            }
+
+            function clr(z){
+                document.getElementById('number-input').value = null;
+            }
+            function backspace(){
+                var value = document.getElementById("number-input").value;
+                document.getElementById("number-input").value = value.substr(0, value.length - 1);
+            }
+
+            function confirm(){
+                const num1 = document.getElementById('pin-input').value;
+                const num2 = document.getElementById('number-input').value;
+                const num3 = parseInt(num1);
+                const num4 = parseInt(num2);
+                // console.log(num1,num2);
+                if(num3 == num4){
+                  const matchedValu = document.getElementById('pin-matched');
+                  matchedValu.style.display = 'block';
+                }
+                if(num3 != num4){
+                    const UnMatchedValue = document.getElementById('pin-unMatched');
+                    UnMatchedValue.style.display = "block";
+                }
+            }
+
         </script>
 </html>
